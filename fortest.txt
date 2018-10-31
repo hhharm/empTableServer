@@ -1,0 +1,7 @@
+Синтаксис запросов
+
+curl -i -X GET localhost:3000
+curl -i -X GET localhost:3000
+curl -i -X DELETE localhost:3000
+curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "New item", "year": "2009"}' localhost:3000
+curl -i -X PUT -H 'Content-Type: application/json' -d '{"name": "Updated item", "year": "2010"}' localhost:3000
