@@ -1,7 +1,12 @@
 Синтаксис запросов
 
-curl -i -X GET localhost:3000
-curl -i -X GET localhost:3000
-curl -i -X DELETE localhost:3000
-curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "New item", "year": "2009"}' localhost:3000
-curl -i -X PUT -H 'Content-Type: application/json' -d '{"name": "Updated item", "year": "2010"}' localhost:3000
+curl -i -X GET http://192.168.1.68:5000/employees
+curl -i -X GET http://192.168.1.68:5000/employee/1
+
+
+
+curl -i -X PUT -H 'Content-Type: application/json' -d '{"id": "1","fullName": "Звягенцева Юлия Андреевна","position": "Повар","birthDate": "06 Sept 1965","status": "работает","commentary": ""}' localhost:5000/employees/1
+
+
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{"name": "Updated item", "year": "2010"}' http://192.168.1.68:5000/employees/1
