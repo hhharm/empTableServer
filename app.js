@@ -1,6 +1,18 @@
-const port = 5000
+const port = process.env.PORT || 5000;
 const express = require('express');
 const bodyParser = require('body-parser');
+var path = require('path');
+var fs = require('fs');
+var busboy = require('connect-busboy');
+
+var dir = path.join(__dirname, 'public');
+
+var mime = {
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png'
+};
+
 var positions = ['Водитель', 'Разработчик', 'Повар', 'Певец', 'Руководитель', 'Тестировщик', 'Уборщик',
     'Работник цеха', 'Промоутер'
 ];
@@ -81,20 +93,24 @@ function findEmployeeById(id) {
     return {};
 }
 
-
 const app = express();
 
+//parse file from post/put
+app.use(busboy());
 
 //prevent CORS error in browser
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods",  "PUT, POST, GET");
-    res.header("Access-Control-Allow-Headers",  "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "PUT, POST, GET");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
 
 //for POST and PUT parsing
-app.use(bodyParser.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+app.use(express.json());
 
 app.route('/employees').get((req, res) => {
     // console.log('received get "employees"');
@@ -112,9 +128,28 @@ app.route('/employees/:id').get((req, res) => {
     }
 });
 
+app.route('/employees/images/:id').get((req, res) => {
+    let ifFileExists = true;
+    const requestedEmployee = req.params['id'];
+    var file = path.join(dir, requestedEmployee);
+    if (fs.existsSync(file + '.jpg')) {
+        file += '.jpg'
+    } else if (fs.existsSync(file + '.jpeg')) {
+        file += '.jpeg'
+    } else if (fs.existsSync(file + '.png')) {
+        file += '.png'
+    } else {
+        var file = path.join(dir, 'nophoto.png');
+    }
+    // console.log("sending file " + file);
+    var type = mime[path.extname(file).slice(1)];
+    res.set('Content-Type', type);
+    res.sendFile(file);
+});
+
 app.route('/employees/:id').put((req, res) => {
-    // console.log("received put with id");
     let employeeKey = findEmployeeKey(+req.body.id);
+    // console.log("received put with id (key=" + employeeKey);
     if (employeeKey == -1) {
         res.status(404).send();
     } else {
@@ -123,7 +158,6 @@ app.route('/employees/:id').put((req, res) => {
         employees[employeeKey].birthDate = req.body.birthDate;
         employees[employeeKey].status = req.body.status;
         employees[employeeKey].commentary = req.body.commentary;
-        //employees[employeeKey].photo = req.body.photo;
         res.status(200).send(employees[employeeKey]);
     }
 });
@@ -164,6 +198,19 @@ app.route('/employees').put((req, res) => {
     }
 });
 
+app.route('/employees/images/:id').post((req, res) => {
+    var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename) {
+        let fextention = filename.split('.').pop();
+        let fullname = dir + '\\' + req.params['id'] + '.' + fextention;
+        fstream = fs.createWriteStream(fullname);
+        file.pipe(fstream);
+        fstream.on('close', function () {
+            res.status(200).end();
+        });
+    });
+});
 
 var lastId = employees[employees.length - 1].id;
 console.log(`listening on port ${port}`);
