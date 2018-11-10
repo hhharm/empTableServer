@@ -13,65 +13,159 @@ var mime = {
     png: 'image/png'
 };
 
-var positions = ['Водитель', 'Разработчик', 'Повар', 'Певец', 'Руководитель', 'Тестировщик', 'Уборщик',
-    'Работник цеха', 'Промоутер'
-];
+var positions = [ 'Физик', 'Режиссёр', 'Архитектор', 'Повар', 'Писатель','Генетик', 'Журналист', 'Дирижёр',
+'Композитор', 'Телеведущий', 'Адвокат', 'Музыкант','Продюсер', 'Актёр', 'Модель'
+].sort();
 
 var employees = [{
         id: 1,
-        fullName: 'Звягенцева Юлия Андреевна',
-        position: 'Повар',
-        birthDate: new Date("06 Sept 1965"),
-        status: 'работает',
+        fullName: 'Алексей Иванович Аджубей',
+        position: 'Журналист',
+        birthDate: new Date("9 Jan 1924"),
+        status: 'уволен',
         commentary: ''
     },
     {
         id: 2,
-        fullName: 'Иванов Пётр Васильевич',
-        position: 'Разработчик',
-        birthDate: new Date("01 Feb 1999"),
+        fullName: 'Френсис Селлерс Коллинз',
+        position: 'Генетик',
+        birthDate: new Date("14 Apr 1950"),
         status: 'работает',
         commentary: ''
     },
     {
         id: 3,
-        fullName: 'Иванова Софья Петровна',
-        position: 'Уборщик',
-        birthDate: new Date("02 Jan 1984"),
-        status: 'уволен',
-        commentary: ''
+        fullName: 'Джоан Роулинг',
+        position: 'Писатель',
+        birthDate: new Date("31 Jul 1965"),
+        status: 'работает',
+        commentary: 'какая интересная дата рождения!'
     },
     {
         id: 4,
-        fullName: 'Невский Пётр Георгиевич',
-        position: 'Промоутер',
-        birthDate: new Date("29 Feb 2004"),
-        status: 'уволен',
+        fullName: 'Джеймс Тревор Оливер',
+        position: 'Повар',
+        birthDate: new Date("27 May 1975"),
+        status: 'работает',
         commentary: ''
     },
     {
         id: 5,
-        fullName: 'Созонов Иван Дмитриевич',
-        position: 'Уборщик',
-        birthDate: new Date("19 Apr 1972"),
-        status: 'работает',
-        commentary: 'любит леденцы'
+        fullName: 'Заха Хадид',
+        position: 'Архитектор',
+        birthDate: new Date("31 Oct 1950"),
+        status: 'уволен',
+        commentary: 'британский архитектор арабского происхождения. В 2004 году стала первой в истории женщиной-архитектором, награждённой Притцкеровской премией.'
     },
     {
         id: 6,
-        fullName: 'Юдинцев Сергей Леонидович',
-        position: 'Тестировщик',
-        birthDate: new Date("09 Jan 1991"),
+        fullName: 'Константин Сергеевич Новосёлов',
+        position: 'Физик',
+        birthDate: new Date("23 Aug 1974"),
+        status: 'работает',
+        commentary: 'Нобелевский лауреат. "За новаторские эксперименты по исследованию двумерного материала графена"'
+    },
+    {
+        id: 7,
+        fullName: 'Светлана Александровна Алексиевич',
+        position: 'Писатель',
+        birthDate: new Date("31 May 1948"),
         status: 'работает',
         commentary: ''
     },
     {
-        id: 7,
-        fullName: 'Галушкин Семён Владиславович',
-        position: 'Певец',
-        birthDate: new Date("19 May 1974"),
+        id: 8,
+        fullName: 'Валерий Абисалович Гергиев',
+        position: 'Дирижёр',
+        birthDate: new Date("2 May 1953"),
         status: 'работает',
-        commentary: 'тенор'
+        commentary: 'Художественный руководитель Мариинского театра.'
+    },
+    {
+        id: 9,
+        fullName: 'Дмитрий Феликсович Черняков',
+        position: 'Режиссёр',
+        birthDate: new Date("11 May 1970"),
+        status: 'работает',
+        commentary: ''
+    },
+    {
+        id: 10,
+        fullName: 'Владимир Викторович Мухин',
+        position: 'Повар',
+        birthDate: new Date("15 Mar 1983"),
+        status: 'работает',
+        commentary: ''
+    }, {
+        id: 11,
+        fullName: 'Владимир Владимирович Познер',
+        position: 'Журналист',
+        birthDate:  new Date('1 Apr 1934'),
+        status: 'работает',
+        commentary: ''
+    }, {
+        id: 12,
+        fullName: 'Иван Андреевич Ургант',
+        position: 'Телеведущий',
+        birthDate:  new Date('16 Apr 1978'),
+        status: 'работает',
+        commentary: 'Российский актёр театра и кино, шоумен, теле- и радиоведущий, певец, музыкант, продюсер.'
+    }, {
+        id: 13,
+        fullName: 'Екатерина Владимировна Чемберджи',
+        position: 'Композитор',
+        birthDate:  new Date('6 May 1960'),
+        status: 'уволен',
+        commentary: ''
+    }, {
+        id: 14,
+        fullName: 'Семён Сергеевич Слепаков',
+        position: 'Продюсер',
+        birthDate:  new Date('23 Aug 1979'),
+        status: 'работает',
+        commentary: 'российский продюсер, сценарист, комедийный актёр, автор-исполнитель песен. В прошлом — капитан команды КВН «Сборная Пятигорска»'
+    }, {
+        id: 15,
+        fullName: 'Сергей Викторович Бадамшин',
+        position: 'Адвокат',
+        birthDate:  new Date('4 Jul 1979'),
+        status: 'работает',
+        commentary: ''
+    }, {
+        id: 16,
+        fullName: 'Сергей Владимирович Шнуров',
+        position: 'Музыкант',
+        birthDate:  new Date('13 Apr 1973'),
+        status: 'уволен',
+        commentary: ''
+    } , {
+        id: 17,
+        fullName: 'Дмитрий Львович Быков',
+        position: 'Писатель',
+        birthDate:  new Date('20 Dec 1967'),
+        status: 'работает',
+        commentary: 'Русский писатель, поэт и публицист, литературный критик, радио- и телеведущий, журналист, преподаватель литературы, кинокритик. Известный политический деятель, яркий представитель оппозиции, частый участник политических дебатов'
+    }, {
+        id: 18,
+        fullName: 'Борис Натанович Стругацкий',
+        position: 'Писатель',
+        birthDate:  new Date('15 Apr 1933'),
+        status: 'уволен',
+        commentary: '"Счастье для всех, даром, и пусть никто не уйдет обиженным!"'
+    }, {
+        id: 19,
+        fullName: 'Татьяна Дмитриевна Ларина',
+        position: 'Актёр',
+        birthDate:  new Date('6 Jun 1999'),
+        status: 'уволен',
+        commentary: ''
+    }, {
+        id: 20,
+        fullName: 'Настасья Филипповна Барашкова',
+        position: 'Модель',
+        birthDate:  new Date('11 Nov 1921'),
+        status: 'уволен',
+        commentary: ''
     }
 ]
 
@@ -113,7 +207,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 app.route('/employees').get((req, res) => {
-    // console.log('received get "employees"');
+    //  console.log('received get "employees"');
     res.send(employees);
 });
 
